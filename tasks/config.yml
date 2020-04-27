@@ -1,7 +1,7 @@
 ---
 # Fetch application version
 - name: FETCH THE VERSION NUMBER
-  shell: "bash -c \"motion -h | grep Version | cut -f3 -d ' ' | cut -f1 -d ',' \""
+  shell: "bash -c \"set -o pipefail && motion -h | grep Version | cut -f3 -d ' ' | cut -f1 -d ',' \""
   register: command_output
   changed_when: false
 
