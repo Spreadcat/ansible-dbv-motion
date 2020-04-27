@@ -880,8 +880,7 @@ Though a single camera can be specified directly in the motion config file (`/et
 
 The following example will cover both scenarios.
 
-One Camera
-""""""""""
+### One Camera
 
 This setup will deploy the configuration for a locally connected USB camera and configure the host
 to be reachable from the outside on port 8081.
@@ -930,8 +929,8 @@ with the location of the configuration file.
         - { role: dbv_motion }
     ...
 
-Multiple Cameras
-""""""""""""""""
+### Multiple Cameras
+
 This setup will deploy the configuration for a locally connected USB camera and configure the host
 to be reachable from the outside on port 8081.
 
@@ -964,8 +963,7 @@ be used as the new configuration file.
         - { role: dbv_motion }
     ...
 
-Remove camera
-"""""""""""""
+### Remove camera
 
 This will remove the configuration file for the camera `cam_traffic.conf`.
 
