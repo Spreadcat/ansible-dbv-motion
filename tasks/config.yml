@@ -11,7 +11,7 @@
     path: '{{ motion_service_init_path }}'
     line: start_motion_daemon=yes
     regexp: '^start_motion_daemon=.*'
-  when: 
+  when:
     - motion_service_state in ('running', 'started')
     - motion_service_managed
 
