@@ -29,8 +29,6 @@
     path: "{{ motion_config_camera['log_file'] }}"
     owner: '{{ motion_user }}'
     group: '{{ motion_group }}'
-  when:  motion_config_camera['log_file'] is defined
+  when: motion_config_camera['log_file'] is defined
   async: 10
   poll: 2
-...
-

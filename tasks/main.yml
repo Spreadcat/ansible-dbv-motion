@@ -6,5 +6,3 @@
   tags: config
 - import_tasks: service.yml
   tags: service
-...
-

@@ -36,7 +36,7 @@ motion_path_config_template_src: motion.conf.j2
 # Default camera one at the standard location path
 motion_config: []
 
-# Default configuration s. Can be overwritten anywhere else in the 
+# Default configuration s. Can be overwritten anywhere else in the
 # hierarchy.
 motion_default_config:
   'area_detect': ''
@@ -215,5 +215,3 @@ motion_default_config:
   'webcontrol_parms': ''
   'webcontrol_port': ''
   'width': ''
-...
-

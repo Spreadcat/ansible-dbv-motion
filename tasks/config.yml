@@ -22,5 +22,3 @@
     motion_version: '{{ command_output.stdout }}'
   loop_control:
     index_var: loop_idx
-...
-

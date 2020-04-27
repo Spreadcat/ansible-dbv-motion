@@ -4,5 +4,3 @@
   service:
     name: '{{ motion_service_name }}'
     state: 'restarted'
-...
-
