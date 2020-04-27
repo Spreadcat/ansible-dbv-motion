@@ -1,5 +1,5 @@
-Role Name
-=========
+dbv-motion
+==========
 
 This role will setup a motion instance (see https://motion-project.github.io/) on a raspberry PI.
 
