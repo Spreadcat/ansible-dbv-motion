@@ -1,0 +1,26 @@
+---
+# Fetch application version
+- name: FETCH THE VERSION NUMBER
+  shell: "bash -c \"motion -h | grep Version | cut -f3 -d ' ' | cut -f1 -d ',' \""
+  register: command_output
+  changed_when: false
+
+- name: ENABLE SERVICE
+  lineinfile:
+    state: present
+    path: '{{ motion_service_init_path }}'
+    line: start_motion_daemon=yes
+    regexp: '^start_motion_daemon=.*'
+  when: 
+    - motion_service_state in ('running', 'started')
+    - motion_service_managed
+
+- include_tasks: motion_config.yml
+  loop: '{{ motion_config }}'
+  vars:
+    motion_config_camera: '{{ item }}'
+    motion_version: '{{ command_output.stdout }}'
+  loop_control:
+    index_var: loop_idx
+...
+

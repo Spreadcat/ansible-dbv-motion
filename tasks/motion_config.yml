@@ -1,0 +1,36 @@
+---
+- name: UPDATE CONFIGURATION
+  template:
+    dest: "{{ motion_path_config_template_dest|dirname + '/' + motion_config_camera['dest'] | default('motion.conf') | basename }}"
+    src: '{{ motion_path_config_template_src }}'
+    force: true
+    group: root
+    owner: root
+    mode: 0644
+  tags: config
+  notify: restart motion service
+  when: (motion_config_camera['state'] is not defined) or
+    (
+    motion_config_camera['state'] is defined and
+    motion_config_camera['state'] != 'absent'
+    )
+
+- name: REMOVE OBSOLETE FILES
+  file:
+    path: "{{ motion_path_config_template_dest | dirname }}/{{ motion_config_camera['dest']|basename }}"
+    state: "{{ motion_config_camera['state'] | default(omit) }}"
+  when: motion_config_camera['state'] is defined
+  async: 10
+  poll: 2
+
+- name: MANAGE LOGFILE
+  file:
+    state: file
+    path: "{{ motion_config_camera['log_file'] }}"
+    owner: '{{ motion_user }}'
+    group: '{{ motion_group }}'
+  when:  motion_config_camera['log_file'] is defined
+  async: 10
+  poll: 2
+...
+

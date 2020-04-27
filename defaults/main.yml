@@ -1,0 +1,219 @@
+---
+# defaults file for dbv_motion
+
+# Dependencies to install
+# Can be dict or list.
+motion_dependencies: []
+#  - libmicrohttpd12
+
+# Packages/URL to install
+# Can be dict or list
+motion_packages:
+  - name: motion
+    state: present
+
+# Default user and group to run the application
+motion_user: motion
+motion_group: motion
+
+# Service configuration
+motion_service_init_path: /etc/default/motion
+motion_service_name: motion
+motion_service_enabled: true
+motion_service_state: started
+motion_service_managed: true
+
+
+# Configuration parameter
+#
+
+# path to the config file for motion
+motion_path_config_template_dest: &default_config_path /etc/motion/
+
+# Template config source file
+motion_path_config_template_src: motion.conf.j2
+
+# Default camera one at the standard location path
+motion_config: []
+
+# Default configuration s. Can be overwritten anywhere else in the 
+# hierarchy.
+motion_default_config:
+  'area_detect': ''
+  'auto_brightness': ''
+  'brightness': ''
+  'camera': []
+  'camera_dir': '/etc/motion/conf.d'
+  'camera_id': ''
+  'camera_name': ''
+  'contrast': ''
+  'daemon': ''
+  'database_busy_timeout': ''
+  'database_dbname': ''
+  'database_host': ''
+  'database_password': ''
+  'database_port': ''
+  'database_type': ''
+  'database_user': ''
+  'despeckle_filter': ''
+  'emulate_motion': ''
+  'event_gap': ''
+  'exif_text': ''
+  'extpipe': ''
+  'ffmpeg_bps': ''
+  'ffmpeg_duplicate_frames': ''
+  'ffmpeg_output_debug_movies': ''
+  'ffmpeg_timelapse_mode': ''
+  'ffmpeg_variable_bitrate': ''
+  'ffmpeg_video_codec': ''
+  'flip_axis': ''
+  'framerate': ''
+  'frequency': ''
+  'height': ''
+  'hue': ''
+  'input': ''
+  'ipv6_enabled': ''
+  'lightswitch_percent': ''
+  'lightswitch_frames': ''
+  'locate_motion_mode': ''
+  'locate_motion_style': ''
+  'log_file': ''
+  'log_level': ''
+  'log_type': ''
+  'mask_file': ''
+  'mask_privacy': ''
+  'minimum_frame_time': ''
+  'minimum_motion_frames': ''
+  'mmalcam_control_params': ''
+  'mmalcam_name': ''
+  'motion_video_pipe': ''
+  'movie_bps': ''
+  'movie_codec': ''
+  'movie_duplicate_frames': ''
+  'movie_extpipe_use': ''
+  'movie_extpipe': ''
+  'movie_filename': ''
+  'movie_max_time': ''
+  'movie_output_motion': ''
+  'movie_output': ''
+  'movie_passthrough': ''
+  'movie_quality': ''
+  'native_language': ''
+  'netcam_decoder': ''
+  'netcam_highres': ''
+  'netcam_keepalive': ''
+  'netcam_proxy': ''
+  'netcam_tolerant_check': ''
+  'netcam_url': ''
+  'netcam_use_tcp': ''
+  'netcam_userpass': ''
+  'noise_level': ''
+  'noise_tune': ''
+  'norm': ''
+  'on_area_detected': ''
+  'on_camera_found': ''
+  'on_camera_lost': ''
+  'on_event_end': ''
+  'on_event_start': ''
+  'on_motion_detected': ''
+  'on_movie_end': ''
+  'on_movie_start': ''
+  'on_picture_save': ''
+  'output_pictures': ''
+  'picture_exif': ''
+  'picture_filename': ''
+  'picture_output_motion': ''
+  'picture_output': ''
+  'picture_quality': ''
+  'picture_type': ''
+  'pid_file': ''
+  'post_capture': ''
+  'power_line_frequency': ''
+  'pre_capture': ''
+  'process_id_file': ''
+  'quality': ''
+  'quiet': ''
+  'rotate': ''
+  'roundrobin_frames': ''
+  'roundrobin_skip': ''
+  'roundrobin_switchfilter': ''
+  'rtsp_uses_tcp': ''
+  'saturation': ''
+  'setup_mode': ''
+  'smart_mask_speed': ''
+  'snapshot_filename': ''
+  'snapshot_interval': ''
+  'sql_log_movie': ''
+  'sql_log_picture': ''
+  'sql_log_snapshot': ''
+  'sql_log_timelapse': ''
+  'sql_query_start': ''
+  'sql_query_stop': ''
+  'sql_query': ''
+  'stream_authentication': ''
+  'stream_auth_method': ''
+  'stream_localhost': ''
+  'stream_grey': ''
+  'stream_cors_header': ''
+  'stream_maxrate': ''
+  'stream_motion': ''
+  'stream_port': ''
+  'stream_preview_method': ''
+  'stream_preview_newline': ''
+  'stream_preview_scale': ''
+  'stream_quality': ''
+  'stream_tls': ''
+  'switchfilter': ''
+  'target_dir': ''
+  'text_changes': ''
+  'text_double': ''
+  'text_event': ''
+  'text_left': ''
+  'text_right': ''
+  'text_scale': ''
+  'threshold': ''
+  'threshold_tune': ''
+  'threshold_maximum': ''
+  'timelapse_codec': ''
+  'timelapse_filename': ''
+  'timelapse_fps': ''
+  'timelapse_interval': ''
+  'timelapse_mode': ''
+  'track_auto': ''
+  'track_iomojo_id': ''
+  'track_generic_move': ''
+  'mysql_db': ''
+  'pgsql_db': ''
+  'track_maxx': ''
+  'track_maxy': ''
+  'track_motorx': ''
+  'track_motory': ''
+  'track_move_wait': ''
+  'track_port': ''
+  'track_speed': ''
+  'track_step_angle_x': ''
+  'track_step_angle_y': ''
+  'track_stepsize': ''
+  'track_type': ''
+  'tunerdevice': ''
+  'webcontrol_auth_method': ''
+  'webcontrol_cert': ''
+  'webcontrol_cors_header': ''
+  'webcontrol_key': ''
+  'webcontrol_tls': ''
+  'use_extpipe': ''
+  'v4l2_palette': ''
+  'vid_control_params': ''
+  'videodevice': ''
+  'video_pipe_motion': ''
+  'video_pipe': ''
+  'webcontrol_authentication': ''
+  'webcontrol_html_output': ''
+  'webcontrol_interface': ''
+  'webcontrol_ipv6': ''
+  'webcontrol_localhost': ''
+  'webcontrol_parms': ''
+  'webcontrol_port': ''
+  'width': ''
+...
+

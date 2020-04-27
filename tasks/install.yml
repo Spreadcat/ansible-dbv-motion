@@ -1,0 +1,16 @@
+---
+# Since version >4.1 some other dependencies are required.
+- name: INSTALL DEPENDENCIES
+  package:
+    name: '{{ item.name | default(item) }}'
+    state: '{{ item.state | default(omit) }}'
+  loop: '{{ motion_dependencies }}'
+
+- name: INSTALL APPLICATION
+  package:
+    name: '{{ item.name | default(item) }}'
+    state: '{{ item.state | default(omit) }}'
+  loop: '{{ motion_packages }}'
+
+
+...

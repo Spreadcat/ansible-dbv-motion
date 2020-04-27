@@ -1,0 +1,1103 @@
+{% set motion_config_camera = ( motion_default_config | combine( motion_config_camera | default({}) ) ) -%}
+# Ansible managed
+#
+# Documentation:  /usr/share/doc/motion/motion_guide.html
+#
+# This file contains only the defined configuration options
+# There are many more options available.  Please
+# consult the documentation for the complete list of all options.
+#
+
+############################################################
+# System control configuration parameters
+############################################################
+
+{% if motion_config_camera['daemon'] not in ('', 'value') -%}
+# Start in daemon (background) mode and release terminal.
+daemon {{ motion_config_camera['daemon'] }}
+
+{% endif -%}
+{% if motion_config_camera['setup_mode'] not in ('', 'value') -%}
+# Start in Setup-Mode, daemon disabled.
+setup_mode {{ motion_config_camera['setup_mode'] }}
+
+{% endif -%}
+{% if motion_config_camera['pid_file'] not in ('', 'value') -%}
+{% set parameter = 'pid_file' -%}
+{% if motion_version is version_compare('4.1', '<=', strict=True) %}{% set parameter = 'process_id_file' %}{% endif -%}
+# File to store the process ID.
+{{ parameter }} motion_config_camera['pid_file'] }}
+
+{% endif -%}
+{% if motion_config_camera['log_file'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% set parameter = 'log_file' -%}
+{% if motion_version is version_compare('4.2', '<') %}{% set parameter = 'logfile' %}{% endif -%}
+# File to write logs messages into. If not defined stderr and syslog is used.
+{{ parameter }} {{ motion_config_camera['log_file'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['log_level'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+# Level of log messages [1..9] (EMG, ALR, CRT, ERR, WRN, NTC, INF, DBG, ALL).
+log_level {{ motion_config_camera['log_level'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['log_type'] not in ('', 'value') -%}
+# Limit the log output to specific components
+log_type {{ motion_config_camera['log_type'] }}
+
+{% endif -%}
+{% if motion_config_camera['quiet'] not in ('', 'value') -%}
+# Be quiet
+quiet {{ motion_config_camera['quiet'] }}
+
+{% endif -%}
+{% if motion_config_camera['native_language'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>', strict=true) -%}
+# Enable native language for Motion webcontrol and log messages.
+native_language {{ motion_config_camera['native_language'] }}
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['camera_id'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=true) -%}
+# Camera ID
+camera_id {{ motion_config_camera['camera_id'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['camera_name'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=true) -%}
+# Camera name
+camera_name {{ motion_config_camera['camera_name'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_version is version_compare('4.0', '>=', strict=true) -%}
+{% if motion_config_camera['camera_dir'] not in ('', '/etc/motion/conf.d', 'value') -%}
+# Directory to read '.conf' files for cameras.
+camera_dir {{ motion_config_camera['camera_dir'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['target_dir'] not in ('', 'value') -%}
+# Target directory for pictures, snapshots and movies
+target_dir {{ motion_config_camera['target_dir'] }}
+
+{% endif -%}
+############################################################
+# Video4Linux Devices Configuration Parameters
+############################################################
+
+{% if motion_config_camera['videodevice'] not in ('', 'value') -%}
+# Video device (e.g. /dev/video0) to be used for capturing.
+videodevice {{ motion_config_camera['videodevice'] }}
+
+{% endif -%}
+{% if motion_version is version_compare('4.2', '<') -%}
+{% if motion_config_camera['brightness'] not in ('', 'value') -%}
+# Control brightness
+brightness {{ motion_config_camera['brightness'] }}
+
+{% endif -%}
+{% if motion_config_camera['contrast'] not in ('', 'value') -%}
+# Control contrast
+contrast {{ motion_config_camera['contrast'] }}
+
+{% endif -%}
+{% if motion_config_camera['hue'] not in ('', 'value') -%}
+# Control hue
+hue {{ motion_config_camera['hue'] }}
+
+{% endif -%}
+{% if motion_config_camera['power_line_frequency'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>=') -%}
+# Control power_line_frequency
+power_line_frequency {{ motion_config_camera['power_line_frequency'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['saturation'] not in ('', 'value') -%}
+# Control saturation
+saturation {{ motion_config_camera['saturation'] }}
+
+{% endif -%}
+{% else -%}
+{% if motion_config_camera['vid_control_params'] not in ('', 'value') -%}
+{% set parameter = 'vid_control_params' -%}
+# Parameters to control video device.  See motion_guide.html
+{{ parameter}} {{ motion_config_camera['vid_control_params'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['v4l2_palette'] not in ('', 'value') -%}
+# The v4l2_palette allows the user to choose a palette to be use by Motion.
+v4l2_palette {{ motion_config_camera['v4l2_palette'] }}
+
+{% endif -%}
+{% if motion_config_camera['input'] not in ('', 'value') -%}
+# Input channel to use expressed as an integer number starting from 0.
+input {{ motion_config_camera['input'] }}
+
+{% endif -%}
+{% if motion_config_camera['norm'] not in ('', 'value') -%}
+# Select the video norm of the device. Values: 0 (PAL), 1 (NTSC), 2 (SECAM), 3 (PAL NC no colour).
+norm {{ motion_config_camera['norm'] }}
+
+{% endif -%}
+{% if motion_config_camera['auto_brightness'] not in ('', 'value') -%}
+# Let motion regulate the brightness of a video device.
+auto_brightness {{ motion_config_camera['auto_brightness'] }}
+
+{% endif -%}
+{% if motion_config_camera['frequency'] not in ('', 'value') -%}
+#
+frequency {{ motion_config_camera['frequency'] }}
+
+{% endif -%}
+{% if motion_config_camera['power_line_frequency'] not in ('', 'value') -%}
+#
+power_line_frequency {{ motion_config_camera['power_line_frequency'] }}
+
+{% endif -%}
+{% if motion_config_camera['tunerdevice'] not in ('', 'value') -%}
+# The tuner device used for controlling the tuner in a tuner card.
+tunerdevice {{ motion_config_camera['tunerdevice'] }}
+
+{% endif -%}
+
+{% if motion_config_camera['roundrobin_frames'] not in ('', 'value') -%}
+# Specifies the number of frames to capture before switching inputs.
+roundrobin_frames {{ motion_config_camera['roundrobin_frames'] }}
+{% endif -%}
+
+{% if motion_config_camera['roundrobin_skip'] not in ('', 'value') -%}
+# Specifies the number of frames to skip after a switch.
+roundrobin_skip {{ motion_config_camera['roundrobin_skip'] }}
+{% endif -%}
+
+{% if motion_config_camera['roundrobin_switchfilter'] not in ('', 'value') -%}
+{% set parameter = 'roundrobin_switchfilter' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'switchfilter' %}{% endif -%}
+# Turns the switch filter on or off. 
+{{ parameter}} {{ motion_config_camera['roundrobin_switchfilter'] }}
+{% endif -%}
+
+############################################################
+# Network Cameras Configuration Parameters
+############################################################
+
+{% if motion_config_camera['netcam_url'] not in ('', 'value') -%}
+# The full URL of the network camera stream.
+netcam_url {{ motion_config_camera['netcam_url'] }}
+
+{% endif -%}
+{% if motion_config_camera['netcam_highres'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '<') -%}
+netcam_highres {{ motion_config_camera['netcam_highres'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['netcam_userpass'] not in ('', 'value') -%}
+# The Username and password for the network camera (username:password).
+netcam_userpass {{ motion_config_camera['netcam_userpass'] }}
+
+{% endif -%}
+{% if motion_config_camera['netcam_decoder'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>') -%}
+# The user requested decoder to use for rtsp/rtmp cameras.
+netcam_decoder {{ motion_config_camera['netcam_decoder'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['netcam_keepalive'] not in ('', 'value') -%}
+# The setting for keep-alive of network socket, should improve performance on compatible net cameras.
+netcam_keepalive {{ motion_config_camera['netcam_keepalive'] }}
+
+{% endif -%}
+{% if motion_config_camera['netcam_proxy'] not in ('', 'value') -%}
+# URL to use for a netcam proxy server, if required.
+netcam_proxy {{ motion_config_camera['netcam_proxy'] }}
+
+{% endif -%}
+{% if motion_config_camera['netcam_tolerant_check'] not in ('', 'value') -%}
+# Use less strict jpeg checks for network cameras
+netcam_tolerant_check {{ motion_config_camera['netcam_tolerant_check'] }}
+
+{% endif -%}
+{% if motion_config_camera['netcam_use_tcp'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% set parameter = 'netcam_use_tcp' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'rtsp_uses_tcp' %}{% endif -%}
+# This option specifies the transport method for rtsp/rtmp cameras.
+{{ parameter }} {{ motion_config_camera['netcam_use_tcp'] }}
+
+{% endif -%}
+{% endif -%}
+############################################################
+# Raspberry Pi Camera Configuration Parameters
+############################################################
+
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% if motion_config_camera['mmalcam_name'] not in ('', 'value') -%}
+# Name of camera to use if you are using a camera accessed through OpenMax/MMAL.
+mmalcam_name {{ motion_config_camera['mmalcam_name'] }}
+
+{% endif -%}
+# Camera control parameters (see raspivid/raspistill tool documentation)
+{% if motion_config_camera['mmalcam_control_params'] not in ('', 'value') -%}
+# This option allows the user to specify control parameters to the Pi camera.
+mmalcam_control_params {{ motion_config_camera['mmalcam_control_params'] }}
+
+{% endif -%}
+{% endif -%}
+############################################################
+# Database Configuration Parameters
+############################################################
+
+{% if motion_config_camera['database_dbname'] not in ('', 'value') -%}
+# The name of the database.
+database_dbname {{ motion_config_camera['database_dbname'] }}
+
+{% endif -%}
+{% if motion_config_camera['database_busy_timeout'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=True) -%}
+# This parameter indicates the time to wait before issuing a timeout message.
+database_busy_timeout {{ motion_config_camera['database_busy_timeout'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_version is version_compare('4.0', '<', strict=true) -%}
+{% if motion_config_camera['mysql_db'] not in ('', 'value') -%}
+# Name of the MySQL database.
+mysql_db {{ motion_config_camera['mysql_db'] }}
+
+{% endif -%}
+{% if motion_config_camera['pgsql_db'] not in ('', 'value') -%}
+# Name of the PostgreSQL database.
+pgsql_db {{ motion_config_camera['pgsql_db'] }}
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['database_host'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=True) -%}
+# The host on which the database is located.
+database_host {{ motion_config_camera['database_host'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_version is version_compare('4.0', '<', strict=true) -%}
+{% if motion_config_camera['mysql_host'] not in ('', 'value') -%}
+# Set the host for the MySQL database
+mysql_host {{ motion_config_camera['mysql_host'] }}
+
+{% endif -%}
+{% if motion_config_camera['pgsql_host'] not in ('', 'value') -%}
+# Set the host for the postgreSQL database
+pgsql_host {{ motion_config_camera['pgsql_host'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['database_password'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=' , strict=true) -%}
+# The user password for database.
+database_password {{ motion_config_camera['database_password'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_version is version_compare('4.0', '<', strict=true) -%}
+{% if motion_config_camera['mysql_password'] not in ('', 'value') -%}
+# Password for the MySQL database
+mysql_password {{ motion_config_camera['mysql_password'] }}
+
+{% endif -%}
+{% if motion_config_camera['pgsql_password'] not in ('', 'value') -%}
+# Password for the PostgreSQL database
+pgsql_password {{ motion_config_camera['pgsql_password'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['database_port'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=true) -%}
+# The port number that is used for the database.
+database_port {{ motion_config_camera['database_port'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_version is version_compare('4.0', '<', strict=true) -%}
+{% if motion_config_camera['pgsql_port'] not in ('', 'value') -%}
+# Set the port for the postgreSQL database
+pgsql_port {{ motion_config_camera['pgsql_port'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['database_type'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=true) -%}
+# This option specifies the database type.
+database_type {{ motion_config_camera['database_type'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['database_user'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=', strict=true) -%}
+# The user account name for database
+database_user {{ motion_config_camera['database_user'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_version is version_compare('4.0', '<', strict=true) -%}
+{% if motion_config_camera['mysql_user'] not in ('', 'value') -%}
+# Set the user to connect to the MySQL database
+mysql_user {{ motion_config_camera['mysql_user'] }}
+
+{% endif -%}
+{% if motion_config_camera['pgsql_user'] not in ('', 'value') -%}
+# Set the user to connect to the postgreSQL database
+pgsql_user {{ motion_config_camera['pgsql_user'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['sql_log_movie'] not in ('', 'value') -%}
+{% set parameter = 'sql_log_movie' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'sql_log_mpeg' %}{% endif -%}
+# Log to the database when creating motion triggered movie file.
+{{ parameter }} {{ motion_config_camera['sql_log_movie'] }}
+
+{% endif -%}
+{% if motion_config_camera['sql_log_picture'] not in ('', 'value') -%}
+{% set parameter = 'sql_log_picture' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'sql_log_image' %}{% endif -%}
+# Log to the database when Motion triggers a image file to be saved.
+{{ parameter }} {{ motion_config_camera['sql_log_image'] }}
+
+{% endif -%}
+{% if motion_config_camera['sql_log_snapshot'] not in ('', 'value') -%}
+# Log to the database when creating a snapshot image file. 
+sql_log_snapshot {{ motion_config_camera['sql_log_snapshot'] }}
+
+{% endif -%}
+{% if motion_config_camera['sql_log_timelapse'] not in ('', 'value') -%}
+# Log to the database when creating timelapse movie file .
+sql_log_timelapse {{ motion_config_camera['sql_log_timelapse'] }}
+
+{% endif -%}
+{% if motion_config_camera['sql_query'] not in ('', 'value') -%}
+# SQL query string that is sent to the database when the sql_log_* item is triggered.
+sql_query {{ motion_config_camera['sql_query'] }}
+
+{% endif -%}
+{% if motion_config_camera['sql_query_start'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>=') -%}
+# SQL query that executes against the event table which tracks the unique events of motion.
+sql_query_start {{ motion_config_camera['sql_quer_start'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['sql_query_stop'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>') -%}
+sql_query_stop {{ motion_config_camera['sql_query_stop'] }}
+
+{% endif -%}
+{% endif -%}
+############################################################
+# Image Processing configuration parameters
+############################################################
+
+{% if motion_config_camera['width'] not in ('', 'value') -%}
+# Image width in pixels.
+width {{ motion_config_camera['width'] }}
+
+{% endif -%}
+{% if motion_config_camera['height'] not in ('', 'value') -%}
+# Image height in pixels.
+height {{ motion_config_camera['height'] }}
+
+{% endif -%}
+{% if motion_config_camera['framerate'] not in ('', 'value') -%}
+# Maximum number of frames to be captured per second.
+framerate {{ motion_config_camera['framerate'] }}
+
+{% endif -%}
+{% if motion_config_camera['minimum_frame_time'] not in ('', 'value') -%}
+# Minimum time in seconds between the capturing picture frames from the camera.
+minimum_frame_time {{ motion_config_camera['minimum_frame_time'] }}
+
+{% endif -%}
+{% if motion_config_camera['rotate'] not in ('', 'value') -%}
+# Rotate image the given number of degrees.
+rotate {{ motion_config_camera['rotate'] }}
+
+{% endif -%}
+{% if motion_version is version_compare('4.1', '>=') -%}
+{% if motion_config_camera['flip_axis'] not in ('', 'value') -%}
+# Flip the image according to specified axis.
+flip_axis {{ motion_config_camera['flip_axis'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['locate_motion_mode'] not in ('', 'value') -%}
+{% set parameter = 'locate_motion_mode' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'locate' %}{% endif -%}
+# Locate and draw a box around the moving object.
+{{ parameter }} {{ motion_config_camera['locate_motion_mode'] }}
+
+{% endif -%}
+{% if motion_version is version_compare('4.0', '<') -%}
+{% if motion_config_camera['locate_motion_style'] not in ('', 'value') -%}
+# Set the look and style of the locate box if enabled.
+locate_motion_style {{ motion_config_camera['locate_motion_style'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['text_left'] not in ('', 'value') -%}
+# Text to be overlayed in the lower left corner of images
+text_left {{ motion_config_camera['text_left'] }}
+
+{% endif -%}
+{% if motion_config_camera['text_right'] not in ('', 'value') -%}
+# Text to be overlayed in the lower right corner of images.
+text_right {{ motion_config_camera['text_right'] }}
+
+{% endif -%}
+{% if motion_config_camera['text_changes'] not in ('', 'value') -%}
+# Turns the text showing changed pixels on/off.
+text_changes {{ motion_config_camera['text_changes'] }}
+
+{% endif -%}
+{% if motion_config_camera['text_scale'] not in ('', 'value') -%}
+{% set parameter = 'text_scale' -%}
+{% if motion_version is version_compare('4.2', '<') -%}{% set parameter = 'text_double' %}{% endif -%}
+# The scale at which to draw text over the image.
+{{ parameter }} {{ motion_config_camera['text_scale'] }}
+
+{% endif -%}
+{% if motion_config_camera['text_event'] not in ('', 'value') -%}
+# This option is special in that it defines the conversion specifier %C which
+# can be used both for text display and for filenames.
+text_event {{ motion_config_camera['text_event'] }}
+
+{% endif -%}
+############################################################
+# Motion detection configuration parameters
+############################################################
+
+{% if motion_config_camera['emulate_motion'] not in ('', 'value') -%}
+{% set parameter = 'emulate_motion' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'output_all' %}{% endif -%}
+# Always save pictures and movies even if there was no motion.
+{{ parameter }} {{ motion_config_camera['emulate_motion'] }}
+
+{% endif -%}
+{% if motion_config_camera['threshold'] not in ('', 'value') -%}
+# Threshold for number of changed pixels that triggers motion.
+threshold {{ motion_config_camera['threshold'] }}
+
+{% endif -%}
+{% if motion_config_camera['threshold_maximum'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# This parameter specifies the maximum number of pixels that will trigger motion.
+threshold_maximum {{ motion_config_camera['threshold_maximum'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['threshold_tune'] not in ('', 'value') -%}
+# Activate the automatic tuning of threshold level.
+threshold_tune {{ motion_config_camera['threshold_tune'] }}
+
+{% endif -%}
+{% if motion_config_camera['noise_level'] not in ('', 'value') -%}
+# Noise threshold for the motion detection.
+noise_level {{ motion_config_camera['noise_level'] }}
+
+{% endif -%}
+{% if motion_config_camera['noise_tune'] not in ('', 'value') -%}
+# Activates the automatic tuning of noise level.
+noise_tune {{ motion_config_camera['noise_tune'] }}
+
+{% endif -%}
+{% if motion_config_camera['despeckle_filter'] not in ('', 'value') -%}
+{% set parameter = 'despeckle_filter' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'despeckle' %}{% endif -%}
+# Despeckle the image using (E/e)rode or (D/d)ilate or (l)abel.
+{{ parameter }} {{ motion_config_camera['despeckle_filter'] }}
+
+{% endif -%}
+{% if motion_config_camera['mask_file'] not in ('', 'value') -%}
+# The full path and filename for the masking pgm file
+mask_file {{ motion_config_camera['mask_file'] }}
+
+{% endif -%}
+{% if motion_config_camera['mask_privacy'] not in ('', 'value') -%}
+# The full path and filename for the privacy masking pgm file.
+mask_privacy {{ motion_config_camera['mask_privacy'] }}
+
+{% endif -%}
+{% if motion_config_camera['smart_mask_speed'] not in ('', 'value') -%}
+# Speed for the smart mask.
+smart_mask_speed {{ motion_config_camera['smart_mask_speed'] }}
+
+{% endif -%}
+{% if motion_config_camera['lightswitch_percent'] not in ('', 'value') -%}
+{% set parameter = 'lightswitch_percent' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'lightswitch' %}{% endif -%}
+# Ignore sudden massive light intensity changes when the percentage of the picture area that changed intensity is greater than this value.
+{{ parameter }} {{ motion_config_camera['lightswitch_percent'] }}
+
+{% endif -%}
+{% if motion_config_camera['lightswitch_frames'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>') -%}
+# The number of frames to ignore when the lightswitch condition is triggered
+lightswitch_frames {{ motion_config_camera['lightswitch_frames'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['minimum_motion_frames'] not in ('', 'value') -%}
+# Number of images that must contain motion to trigger an event.
+minimum_motion_frames {{ motion_config_camera['minimum_motion_frames'] }}
+
+{% endif -%}
+{% if motion_config_camera['event_gap'] not in ('', 'value') -%}
+{% set parameter = 'event_gap' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'gap' %}{% endif -%}
+# Gap in seconds of no motion detected that triggers the end of an event.
+{{ parameter }} {{ motion_config_camera['event_gap'] }}
+
+{% endif -%}
+{% if motion_config_camera['pre_capture'] not in ('', 'value') -%}
+# The number of pre-captured (buffered) pictures from before motion.
+pre_capture {{ motion_config_camera['pre_capture'] }}
+
+{% endif -%}
+{% if motion_config_camera['post_capture'] not in ('', 'value') -%}
+# Number of frames to capture after motion is no longer detected.
+post_capture {{ motion_config_camera['post_capture'] }}
+
+{% endif -%}
+############################################################
+# Script execution configuration parameters
+############################################################
+
+{% if motion_config_camera['on_event_start'] not in ('', 'value') -%}
+# Command to be executed when an event starts.
+on_event_start {{ motion_config_camera['on_event_start'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_event_end'] not in ('', 'value') -%}
+# Command to be executed when an event ends.
+on_event_end {{ motion_config_camera['on_event_end'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_picture_save'] not in ('', 'value') -%}
+# The full path and file name of the program/script to be executed when a picture is saved. 
+on_picture_save {{ motion_config_camera['on_picture_save'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_motion_detected'] not in ('', 'value') -%}
+# The full path and file name of the program/script to be executed when motion is detected.
+on_motion_detected {{ motion_config_camera['on_motion_detected'] }}
+
+{% endif -%}
+{% if motion_config_camera['area_detect'] not in ('', 'value') -%}
+# Define the area of detection
+area_detect {{ motion_config_camera['area_detect'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_movie_start'] not in ('', 'value') -%}
+# The full path and file name of the program/script to be executed when a new movie is being created.
+on_movie_start {{ motion_config_camera['on_movie_start'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_movie_end'] not in ('', 'value') -%}
+# Command to be executed when a movie file is closed.
+on_movie_end {{ motion_config_camera['on_movie_end'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_camera_lost'] not in ('', 'value') -%}
+# The full path and file name of the command to be executed when a camera can't be opened or if it is lost.
+on_camera_lost {{ motion_config_camera['on_camera_lost'] }}
+
+{% endif -%}
+{% if motion_config_camera['on_camera_found'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>=') -%}
+# The full path and file name of the command to be executed when a lost camera is found.
+on_camera_found {{ motion_config_camera['on_camera_found'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['on_area_detected'] not in ('', 'value') -%}
+# Define script to execute when motion is detected.
+on_area_detected {{ motion_config_camera['on_area_detected'] }}
+
+{% endif -%}
+############################################################
+# Picture Configuration Parameters
+############################################################
+
+{% if motion_config_camera['picture_output'] not in ('', 'value') -%}
+{% set parameter = 'picture_output' -%}
+{% if motion_version is version_compare('4.2', '<') %}{% set parameter = 'output_pictures' %}{% endif -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'output_normal' %}{% endif -%}
+# This option controls the output of the normal image
+{{ parameter }} {{ motion_config_camera['picture_output'] }}
+
+{% endif -%}
+{% if motion_config_camera['picture_output_motion'] not in ('', 'value') -%}
+{% set parameter = 'picture_output_motion' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'output_debug_pictures' %}{% endif -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'output_motion' %}{% endif -%}
+# Output pictures when motion is detected
+{{ parameter }} {{ motion_config_camera['picture_output_motion'] }}
+
+{% endif -%}
+{% if motion_config_camera['picture_type'] not in ('', 'value') -%}
+{% set parameter = 'picture_type' -%}
+{% if motion_version is version_compare('4.0', '<' ) %}{% set parameter = 'ppm' %}{% endif -%}
+# This option specifies the type of picture file to output.
+{{ parameter }} {{ motion_config_camera['picture_type'] }}
+
+{% endif -%}
+{% if motion_config_camera['picture_quality'] not in ('', 'value') -%}
+{% set parameter = 'picture_quality' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'quality' %}{% endif -%}
+# The quality for the jpeg or webp images in percent.
+{{ parameter }} {{ motion_config_camera['picture_quality'] }}
+
+{% endif -%}
+{% if motion_config_camera['picture_exif'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% set parameter = 'picture_exif' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'exif_text' %}{% endif -%}
+# Specify text to include to JPEG exif comment
+{{ parameter }} {{ motion_config_camera['picture_exif'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['picture_filename'] not in ('', 'value') -%}
+{% set parameter = 'picture_filename' -%}
+{% if motion_version is version_compare('4.0', '<' ) %}{% set parameter = 'jpeg_filename' %}{% endif -%}
+# File name(without extension) for pictures relative to target directory
+{{ parameter }} {{ motion_config_camera['picture_filename'] }}
+
+{% endif -%}
+{% if motion_config_camera['snapshot_interval'] not in ('', 'value') -%}
+# This parameter specifies the number of seconds between each snapshot. 
+snapshot_interval {{ motion_config_camera['snapshot_interval'] }}
+
+{% endif -%}
+{% if motion_config_camera['snapshot_filename'] not in ('', 'value') -%}
+# This option indicates the file name and optionally the path for the snapshots relative to target_dir.
+snapshot_filename {{ motion_config_camera['snapshot_filename'] }}
+
+{% endif -%}
+############################################################
+# Movie Configuration Parameters
+############################################################
+{#
+  Configuration parameter unavailable in version <4.0
+#}
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% if motion_config_camera['movie_extpipe'] not in ('', 'value') -%}
+{% set parameter = 'extpipe' -%}
+{% if motion_version is version_compare('4.2', '>') %}{% set parameter = 'movie_extpipe' %}{% endif -%}
+# Specifies the program name and options for the program that will receive and process the images during a movie event. 
+{{ parameter }} {{ motion_config_camera['movie_extpipe'] }}
+
+{% endif -%}
+{% if motion_config_camera['movie_extpipe_use'] not in ('', 'value') -%}
+{% set parameter = 'use_extpipe' -%}
+{% if motion_version is version_compare('4.2', '>') %}{% set parameter = 'movie_extpipe_use' %}{% endif -%}
+# Specifies whether to send the output to a pipe for external encoding into a movie. 
+{{ parameter }} {{ motion_config_camera['movie_extpipe_use'] }}
+
+{% endif -%}
+{% endif -%}{# End for >= v4.0 #}
+{% if motion_config_camera['movie_output'] not in ('', 'value') -%}
+{% set parameter = 'movie_output' -%}
+{% if motion_version is version_compare('4.2', '<=') %}{% set parameter = 'ffmpeg_output_movies' %}{% endif -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'ffmpeg_cap_motion' %}{% endif -%}
+# Create movies of motion events.
+{{ parameter }} {{ motion_config_camera['movie_output'] }}
+
+{% endif -%}
+{% if motion_config_camera['movie_output_motion'] not in ('', 'value') -%}
+{% set parameter = 'movie_output_motion' -%}
+{% if motion_version is version_compare('4.2', '<=') %}{% set parameter = 'ffmpeg_output_debug_movies' %}{% endif -%}
+{% if motion_verision is version_compare('4.0', '<')  %}{% set parameter = 'ffmpeg_cap_motion' %}{% endif -%}
+# Use ffmpeg libraries to encode motion type movies where you only see the pixels that changes. 
+{{ parameter }} {{ motion_config_camera['movie_output_motion'] }}
+
+{% endif -%}
+{% if motion_config_camera['movie_max_time'] not in ('', 'value') -%}
+{% set parameter = 'movie_max_time' -%}
+{% if motion_version is version_compare('4.2', '<=') %}{% set parameter = 'max_movie_time' %}{% endif -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'max_mpeg_time' %}{% endif -%}
+# Maximum length of movie in seconds.
+{{ parameter }} {{ motion_config_camera['movie_max_time'] }}
+
+{% endif -%}
+{% if motion_config_camera['movie_bps'] not in ('', 'value') -%}
+{% set parameter = 'movie_bps' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'ffmpeg_bps' %}{% endif -%}
+{{ parameter}} {{ motion_config_camera['movie_bps'] }}
+{% endif -%}
+{% if motion_config_camera['movie_quality'] not in ('', 'value') -%}
+{% set parameter = 'movie_quality' -%}
+{% if motion_version is version_compare('4.2', '>')  %}{% set parameter = 'ffmpeg_variable_bitrate' %}{% endif -%}
+# The encoding quality of the movie. (0=use bitrate. 1=worst quality, 100=best)
+{{ parameter }} {{ motion_config_camera['movie_quality'] }}
+
+{% endif -%}
+{% if motion_config_camera['movie_codec'] not in ('', 'value') -%}
+{% set parameter = 'movie_codec' -%}
+{% if motion_version is version_compare('4.2', '<=') %}{% set parameter = 'ffmpeg_video_codec' %}{% endif -%}
+# Container/Codec to used for the movie. See motion_guide.html
+{{ parameter }} {{ motion_config_camera['movie_codec'] }}
+
+{% endif -%}
+{% if motion_config_camera['movie_duplicate_frames'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% set parameter = 'movie_duplicate_frames' -%}
+{% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'ffmpeg_duplicate_frames' %}{% endif -%}
+# When specified, if the CPU can not keep up with the requested frame rate for the movies,
+# frames will be duplicated in order to keep up with the frame rate.
+{{ parameter }} {{ motion_config_camera['movie_duplicate_frames'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['movie_passthrough'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>' , strict=True) -%}
+# When using a RTSP, RTMP, mjpeg and some V4l2 cameras, create movie files of the motion with the packets obtained directly from the camera. 
+movie_passthrough {{ motion_config_camera['movie_passthrough'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['movie_filename'] not in ('', 'value') -%}
+# File name(without extension) for movies relative to target directory
+movie_filename {{ motion_config_camera['movie_filename'] }}
+
+{% endif -%}
+{% if motion_config_camera['timelapse_filename'] not in ('', 'value') -%}
+# File path for the timelapse videos relative to target_dir. 
+timelapse_filename {{ motion_config_camera['timelapse_filename'] }}
+
+{% endif -%}
+{% if motion_config_camera['timelapse_interval'] not in ('', 'value') -%}
+{% set parameter = 'timelapse_interval' -%}
+{% if motion_version is version_compare('4.1', '<') %}{% set parameter = 'ffmpeg_timelapse' %}{% endif -%}
+# Create a timelapse video saving a picture frame at the interval in seconds set by this parameter.
+{{ parameter }} {{ motion_config_camera['timelapse_interval'] }}
+
+{% endif -%}
+{% if motion_config_camera['timelapse_mode'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '<') %}{% set parameter = 'ffmpeg_timelapse_mode' %}{% endif -%}
+# The file rollover mode of the timelapse video.
+{{ parameter }} {{ motion_config_camera['timelapse_mode'] }}
+
+{% endif -%}
+{% if motion_config_camera['timelapse_codec'] not in ('', 'value') -%}
+{% set parameter = 'timelapse_codec' -%}
+{% if motion_version is version_compare('4.1', '<') %}{% set parameter = 'ffmpeg_video_codec' %}{% endif -%}
+# Container/Codec to be used by timelapse video.
+{{ parameter }} {{ motion_config_camera['timelapse_codec'] }}
+
+{% endif -%}
+{% if motion_config_camera['timelapse_fps'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>=') -%}
+# The frame per second rate to use in the playback of the timelapse video.
+timelapse_fps {{ motion_config_camera['timelapse_fps'] }}
+
+{% endif -%}
+{% endif -%}
+############################################################
+# Pipes Configuration Parameters
+############################################################
+
+{% if motion_config_camera['video_pipe'] not in ('', 'value') -%}
+# The video4linux video loopback device for normal images.
+video_pipe {{ motion_config_camera['video_pipe'] }}
+
+{% endif -%}
+
+{% if motion_config_camera['video_pipe_motion'] not in ('', 'value') -%}
+{% set parameter = 'motion_video_pipe' %}
+{% if motion_version is version_compare('4.2', '<') -%}{% set parameter = 'motion_video_pipe' %}{% endif -%}
+# The video4linux video loopback device for motion images.
+{{ parameter }} {{ motion_config_camera['video_pipe_motion'] }}
+
+{% endif -%}
+############################################################
+# Webcontrol Configuration Parameters
+############################################################
+
+{% if motion_config_camera['webcontrol_port'] not in ('', 'value') -%}
+{% set parameter = 'webcontrol_port' -%}
+{% if motion_version is version_compare('4.0', '<') -%}{% set parameter = 'control_port' %}{% endif -%}
+# Port number used for the webcontrol.
+{{ parameter }} {{ motion_config_camera['webcontrol_port'] }}
+
+{% endif -%}
+{% if motion_config_camera['webcontrol_ipv6'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+{% set parameter = 'webcontrol_ipv6' -%}
+{% if motion_version is version_compare('4.2', '<') -%}{% set parameter = 'ipv6_enabled' %}{% endif -%}
+# Listen for connections from IPv6 and IPV4.
+{{ parameter }} {{ motion_config_camera['webcontrol_ipv6'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['webcontrol_localhost'] not in ('', 'value') -%}
+{% set parameter = 'webcontrol_localhost' -%}
+{% if motion_version is version_compare('4.0', '<') -%}{% set parameter = 'control_localhost' %}{% endif -%}
+# Restrict webcontrol connections to the localhost.
+{{ parameter }} {{ motion_config_camera['webcontrol_localhost'] }}
+
+{% endif -%}
+{% if motion_config_camera['webcontrol_parms'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.1', '>=') -%}
+# Type of configuration options to allow via the webcontrol.
+webcontrol_parms {{ motion_config_camera['webcontrol_parms'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['webcontrol_interface'] not in ('', 'value') -%}
+{% set parameter = 'webcontrol_interface' -%}
+{% if motion_version is version_compare('4.2', '<') -%}{% set parameter = 'webcontrol_html_output' %}{% endif -%}
+{% if motion_version is version_compare('4.0', '<') -%}{% set parameter = 'control_html_output' %}{% endif -%}
+# The type of webcontrol interface to provide.
+{{ parameter }} {{ motion_config_camera['webcontrol_interface'] }}
+
+{% endif -%}
+{% if motion_config_camera['webcontrol_auth_method'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# Authentication method to use for the webcontrol port
+webcontrol_auth_method {{ motion_config_camera['webcontrol_auth_method'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['webcontrol_authentication'] not in ('', 'value') -%}
+{% set parameter = 'webcontrol_authentication' -%}
+{% if motion_version is version_compare('4.0', '<') -%}{% set parameter = 'control_authentication' %}{% endif -%}
+# This parameter establishes the username and password to use for the stream (user:pass).
+{{ parameter }} {{ motion_config_camera['webcontrol_authentication'] }}
+
+{% endif -%}
+{% if motion_config_camera['webcontrol_tls'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# This option specifies whether to enable SSL/TLS for the webcontrol port.
+webcontrol_tls {{ motion_config_camera['webcontrol_tls'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['webcontrol_cert'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# Full path to the certification file for SSL/TLS support.
+webcontrol_cert {{ motion_config_camera['webcontrol_cert'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['webcontrol_key'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# Full path to the key file for SSL/TLS support. 
+webcontrol_key {{ motion_config_camera['webcontrol_key'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['webcontrol_cors_header'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# The Access-Control-Allow-Origin header value to be sent with the webcontrol.
+webcontrol_cors_header {{ motion_config_camera['webcontrol_cors_header'] }}
+
+{% endif -%}
+{% endif -%}
+
+############################################################
+# Live stream Configuration Parameters
+############################################################
+
+{% if motion_config_camera['stream_port'] not in ('', 'value') -%}
+{% set parameter = 'stream_port' -%}
+{% if motion_version is version_compare('4.0', '<=') -%}{% set parameter = 'webcam_port' %}{% endif -%}
+# The TCP port that Motion will send the main stream.
+{{ parameter }} {{ motion_config_camera['stream_port'] }}
+
+{% endif -%}
+{% if motion_config_camera['stream_localhost'] not in ('', 'value') -%}
+{% set parameter = 'stream_localhost' -%}
+{% if motion_version is version_compare('4.0', '<') -%}{% set parameter = 'webcam_localhost' %}{% endif -%}
+# Limits the access to the stream to the localhost.
+{{ parameter }} {{ motion_config_camera['stream_localhost'] }}
+
+{% endif -%}
+{% if motion_config_camera['stream_auth_method'] not in ('', 'value') -%}
+{% set parameter = 'stream_auth_method' -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+# This parameter establishes desired authentication method for the stream port.
+{{ parameter }} {{ motion_config_camera['stream_auth_method'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_authentication'] not in ('', 'value') -%}
+{% set parameter = 'stream_authentication' -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+# This parameter establishes the username and password to use for the stream (user:password).
+stream_authentication {{ motion_config_camera['stream_authentication'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_tls'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# This option specifies whether to enable SSL/TLS for the stream port.
+stream_tls {{ motion_config_camera['stream_tls'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_cors_header'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# The Access-Control-Allow-Origin header value to be sent with the stream.
+stream_cors_header {{ motion_config_camera['stream_cors_header'] }}
+
+{% endif -%}
+{% endif -%}
+
+{% if motion_config_camera['stream_preview_scale'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+# This parameter indicates the percentage to scale the stream image when it is placed on the page.
+stream_preview_scale {{ motion_config_camera['stream_preview_scale'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_preview_newline'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.0', '>=') -%}
+# This parameter determines whether the image is placed on a new line in the webcontrol web page. 
+stream_preview_newline {{ motion_config_camera['stream_preview_newline'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_preview_method'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+{% set parameter = 'stream_preview_method' -%}
+# This option determines the method used for displaying images on the webcontrol page.
+{{ parameter }} {{ motion_config_camera['stream_preview_method'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_quality'] not in ('', 'value') -%}
+{% set parameter = 'stream_quality' -%}
+{% if motion_version is version_compare('4.0', '<') %}{% set parameter = 'webcam_quality' %}{% endif -%}
+# Quality setting in percent for the jpeg picture frames transferred over the live stream connection.
+stream_quality {{ motion_config_camera['stream_quality'] }}
+
+{% endif -%}
+{% if motion_config_camera['stream_grey'] not in ('', 'value') -%}
+{% set parameter = 'stream_grey' -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# Send the live stream in grey (black and white) rather than color.
+{{ parameter }} {{ motion_config_camera['stream_grey'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['stream_maxrate'] not in ('', 'value') -%}
+{% set parameter = 'stream_maxrate' -%}
+{% if motion_version is version_compare('4.0', '<') -%}{% set parameter = 'webcam_maxrate' %}{% endif -%}
+# Limit the framerate of the stream in frames per second.
+{{ parameter }} {{ motion_config_camera['stream_maxrate'] }}
+
+{% endif -%}
+{% if motion_config_camera['stream_motion'] not in ('', 'value') -%}
+{% set parameter = 'stream_motion' -%}
+{% if motion_version is version_compare('4.0', '<=') -%}{% set parameter = 'webcam_motion' %}{% endif -%}
+# Limit the framerate to 1 frame per second when there is no motion being detected.
+{{ parameter }} {{ motion_config_camera['stream_motion'] }}
+
+{% endif -%}
+##############################################################
+# Tracking Configuration Parameters
+##############################################################
+
+{% if motion_config_camera['track_auto'] not in ('', 'value') -%}
+# Enable auto tracking of the motion.
+track_auto {{ motion_config_camera['track_auto'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_generic_move'] not in ('', 'value') -%}
+{% if motion_version is version_compare('4.2', '>=') -%}
+# The full path and file name of the command to execute to move a PTZ camera in generic tracking mode
+track_generic_move {{ motion_config_camera['track_generic_move'] }}
+
+{% endif -%}
+{% endif -%}
+{% if motion_config_camera['track_iomojo_id'] not in ('', 'value') -%}
+# Use this option if you have an iomojo smilecam connected to the serial port
+# instead of a general stepper motor controller. 
+track_iomojo_id {{ motion_config_camera['track_iomojo_id'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_maxx'] not in ('', 'value') -%}
+# The maximum position for servo x. Only used for stepper motor tracking.
+track_maxx {{ motion_config_camera['track_maxx'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_maxy'] not in ('', 'value') -%}
+# The maximum position for servo y. Only used for stepper motor tracking.
+track_maxy {{ motion_config_camera['track_maxy'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_motorx'] not in ('', 'value') -%}
+# The motor number that is used for controlling the x-axis.
+track_motorx {{ motion_config_camera['track_motorx'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_motory'] not in ('', 'value') -%}
+# The motor number that is used for controlling the y-axis.
+track_motory {{ motion_config_camera['track_motory'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_move_wait'] not in ('', 'value') -%}
+# Delay during which tracking is disabled after auto tracking has moved the camera.
+track_move_wait {{ motion_config_camera['track_move_wait'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_port'] not in ('', 'value') -%}
+# This is the device name of the serial port to which the stepper motor interface is connected.
+track_port {{ motion_config_camera['track_port'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_speed'] not in ('', 'value') -%}
+# Speed to set the motor to.
+track_speed {{ motion_config_camera['track_speed'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_step_angle_x'] not in ('', 'value') -%}
+# Angle in degrees the camera moves per step on the X-axis with auto tracking.
+track_step_angle_x {{ motion_config_camera['track_step_angle_x'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_step_angle_y'] not in ('', 'value') -%}
+# Angle in degrees the camera moves per step on the Y-axis with auto tracking.
+track_step_angle_y {{ motion_config_camera['track_step_angle_y'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_stepsize'] not in ('', 'value') -%}
+# Number of steps to make.
+track_stepsize {{ motion_config_camera['track_stepsize'] }}
+
+{% endif -%}
+{% if motion_config_camera['track_type'] not in ('', 'value') -%}
+# Type of tracker.
+track_type {{ motion_config_camera['track_type'] }}
+
+{% endif -%}
+
+{#
+  This should be at the end of the configuration file acc. to documentation 
+#}
+{% if motion_config_camera['camera'] is defined -%} 
+{% set parameter = 'camera' -%}
+{% if motion_version is version_compare('4.0', '<', strict=true) %}{% set parameter = 'thread' %}{% endif -%}
+{% for camera_file in motion_config_camera['camera'] -%}
+# The full path and file name for the camera file.
+camera {{ motion_path_config_template_dest|dirname }}/{{ camera_file|basename }}
+{% endfor -%}
+{% endif -%}
+

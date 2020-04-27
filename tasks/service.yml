@@ -1,0 +1,9 @@
+---
+# Service file for motion
+- name: MANAGE MOTION SERVICE
+  service:
+    name: '{{ motion_service_name }}'
+    enabled: '{{ motion_service_enabled }}'
+    state: '{{ motion_service_state }}'
+...
+
