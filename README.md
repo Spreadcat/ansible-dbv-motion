@@ -57,7 +57,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#database_dbname.
 
-  For version <=4.0 this parameter is automatically omitted.
+  For version <4.0 this parameter is automatically omitted.
 
   Use `mysql_db` or `pgsql_db` for versions <4.0.
 
@@ -87,7 +87,7 @@ Role Variables
 
   Use this parameter to set the mysql host for version <4.0 instead of `database_host`.
 
-  This parameter is automatically omitted for version <=4.0.
+  This parameter is automatically omitted for version >=4.0.
 
 * **motion_config[x][pgsql_host]** string
 
@@ -95,7 +95,7 @@ Role Variables
 
   Use this parameter to set the postgresql host for version <4.0 instead of `database_host`.
 
-  This parameter is automatically omitted for version <=4.0.
+  This parameter is automatically omitted for version >=4.0.
 
 * **motion_config[x][database_password]** string
 
@@ -211,7 +211,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#locate_motion_mode
 
-  This parameter automatically will be replaced with `locate` for versions <=4.0.
+  This parameter automatically will be replaced with `locate` for versions <4.0.
 
 * **motion_config[x][locate_motion_style]** string
 
@@ -223,9 +223,9 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#log_file
 
-  This parameter is automatically omitted for versions <4.0
+  This parameter is automatically omitted for versions <4.0.
 
-  This parameter is automatically replaced with `logfile` for versions <=4.1 and >=4.0.
+  This parameter is automatically replaced with `logfile` for versions >=4.0 and <=4.1.
 
 * **motion_config[x][log_level]** int
 
@@ -307,7 +307,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#movie_max_time
 
-  This parameter is automatically replaced with `max_movie_time` for versions <=4.2 and >=4.0.
+  This parameter is automatically replaced with `max_movie_time` for versions <=4.1 and >=4.0.
 
   This parameter is automatically replaed with `max_mpeg_time` for versions <4.0.
 
@@ -343,7 +343,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#native_language
 
-  This paramete will be automatically omitted for versions <= 4.1.
+  This parameter will be automatically omitted for versions <= 4.1.
 
 * **motion_config[x][netcam_decoder]** string
 
@@ -376,6 +376,8 @@ Role Variables
 * **motion_config[x][netcam_use_tcp]** bool
 
   See https://motion-project.github.io/motion_config.html#netcam_use_tcp
+ 
+  This parameter is automatically replaced with `rtsp_uses_tcp` for versions <=4.1.
 
   This parameter is automatically omitted for versions <4.0.
 
@@ -461,9 +463,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#picture_filename
 
-  This parameter is automatically replaced with `output_debug_pictures` for versions <=4.1.
-
-  This parameter is automatically replaced with `output_motion` for versions <4.0.
+  This parameter is automatically replaced with `jpeg_filename` for versions <4.0.
 
 * **motion_config[x][picture_type]** string
 
@@ -511,6 +511,8 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#roundrobin_switchfilter
 
+  This paramter is automatically replaced with `switchfilter` for versions <=4.1.
+
 * **motion_config[x][setup_mode]** bool
 
  See https://motion-project.github.io/motion_config.html#setup_mode
@@ -522,6 +524,10 @@ Role Variables
 * **motion_config[x][snapshot_filename]** string
 
   See https://motion-project.github.io/motion_config.html#snapshot_filename
+
+* **motion_config[x][snapshot_interval]** int
+
+  See https://motion-project.github.io/motion_config.html#snapshot_interval
 
 * **motion_config[x][sql_log_movie]** bool
 
@@ -571,19 +577,19 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#stream_cors_header
 
-  This parameter is automatically omitted for versions <4.2.
+  This parameter is automatically omitted for versions >4.1.
 
 * **motion_config[x][stream_grey]** bool
 
   See https://motion-project.github.io/motion_config.html#stream_grey
 
-  This parameter is automatically omitted for versions <=4.2.
+  This parameter is automatically omitted for versions <=4.1.
 
 * **motion_config[x][stream_localhost]** bool
 
   See https://motion-project.github.io/motion_config.html#stream_localhost
 
-  This parameter is automatically replaced with `webcam_maxrate` for versions <4.0.
+  This parameter is automatically replaced with `webcam_localhost` for versions <4.0.
 
 * **motion_config[x][stream_maxrate]** int
 
@@ -607,7 +613,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#stream_preview_method
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions <=4.1.
 
 * **motion_config[x][stream_preview_newline]** bool
 
@@ -631,7 +637,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#stream_tls
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions <=4.1.
 
 * **motion_config[x][target_dir]** string
 
@@ -657,6 +663,8 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#text_scale
 
+  This parameter is automatically replaced with `text_double` for versions <=4.1.
+
 * **motion_config[x][threshold]** int
 
   See https://motion-project.github.io/motion_config.html#threshold
@@ -665,7 +673,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#threshold_maximum
 
-  This parameter is automatically omitted for versions <= 4.2.
+  This parameter is automatically omitted for versions <= 4.1.
 
 * **motion_config[x][threshold_tune]** bool
 
@@ -697,6 +705,8 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#timelapse_mode
 
+  This parameter is automatically replaced with `ffmpeg_timelapse_mode` for versions <=4.1.
+
 * **motion_config[x][track_auto]** bool
 
   See https://motion-project.github.io/motion_config.html#track_auto
@@ -705,7 +715,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#track_generic_move
 
-  This parameter is automatically omitted for versions <4.2.
+  This parameter is automatically omitted for versions >4.1.
 
 * **motion_config[x][track_iomojo_id]** int
 
@@ -714,6 +724,10 @@ Role Variables
 * **motion_config[x][track_maxx]** int
 
   See https://motion-project.github.io/motion_config.html#track_maxx
+
+* **motion_config[x][track_maxy]** int
+
+  See https://motion-project.github.io/motion_config.html#track_maxy
 
 * **motion_config[x][track_motorx]** int
 
@@ -763,9 +777,9 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#vid_control_params
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions >4.1.
 
-  Use parameter `brightness`, `contrast`, `hue` and `saturation` for versions <4.2.
+  Use parameter `brightness`, `contrast`, `hue` and `saturation` for versions <=4.1.
 
   The parameter `power_line_frequency` will be automatically ommitted for versions <4.0.
 
@@ -787,7 +801,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#webcontrol_auth_method
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions >4.1.
 
 * **motion_config[x][webcontrol_authentication]** string
 
@@ -799,19 +813,19 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#webcontrol_cert
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions <=4.1.
 
 * **motion_config[x][webcontrol_cors_header]** string
 
   See https://motion-project.github.io/motion_config.html#webcontrol_cors_header
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions >4.1.
 
 * **motion_config[x][webcontrol_interface]** int
 
   See https://motion-project.github.io/motion_config.html#webcontrol_interface
 
-  This parameter will be automatically replaced with `webcontrol_html_output` for versions <4.2.
+  This parameter will be automatically replaced with `webcontrol_html_output` for versions <=4.1.
 
   This parameter will be automatically replaced with `control_html_output` for versions <4.0.
 
@@ -819,7 +833,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#webcontrol_ipv6
 
-  This parameter will be automatically replaced with `ipv6_enabled` for versions <4.2.
+  This parameter will be automatically replaced with `ipv6_enabled` for versions <=4.1.
 
   This parameter will be automatically omitted for versions <4.0.
 
@@ -827,7 +841,7 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#webcontrol_key
 
-  This parameter will be automatically omitted for versions <4.2.
+  This parameter will be automatically omitted for versions <=4.1.
 
 * **motion_config[x][webcontrol_localhost]** bool
 
@@ -851,7 +865,11 @@ Role Variables
 
   See https://motion-project.github.io/motion_config.html#webcontrol_tls
 
-  This parameter is automatically omitted for versions <=4.2.
+  This parameter is automatically omitted for versions <=4.1.
+
+* **motion_config[x][width]** int
+
+  See https://motion-project.github.io/motion_config.html#width
 
 * **motion_config[x][state]** string
 
