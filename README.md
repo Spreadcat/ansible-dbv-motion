@@ -876,7 +876,7 @@ Role Variables
   This parameter is usually unset. Set it to `absent` and define the parameter `dest` in order to
   remove old configuration files.
 
-  This defaults to whatever the default setting for the parameter `state` in the module `file` in ansible is set to (usually: `present`).
+  This defaults to whatever the default setting for the parameter `state` in the module `file` in ansible is set to (usually `present`).
 
 * **motion_config[x][dest]** string
 
@@ -1000,6 +1000,11 @@ Limitations
 -----------
 
 * Raspberry Linux 10 (Buster)
+* Tested with motion versions
+
+  * 4.1.1-1
+  * 4.2.2-1
+  * 4.3.1-1
 
 License
 -------
@@ -1010,4 +1015,3 @@ Author Information
 ------------------
 
 * Github: https://github.com/Spreadcat?tab=repositories
-
