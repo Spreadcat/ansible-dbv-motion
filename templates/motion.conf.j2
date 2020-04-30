@@ -798,6 +798,7 @@ timelapse_filename {{ motion_config_camera['timelapse_filename'] }}
 
 {% endif -%}
 {% if motion_config_camera['timelapse_mode'] not in ('', 'value') -%}
+{% set parameter = 'timelapse_mode' -%}
 {% if motion_version is version_compare('4.1', '<=') %}{% set parameter = 'ffmpeg_timelapse_mode' %}{% endif -%}
 # The file rollover mode of the timelapse video.
 {{ parameter }} {{ motion_config_camera['timelapse_mode'] }}
