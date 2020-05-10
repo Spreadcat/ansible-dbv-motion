@@ -1006,6 +1006,11 @@ Limitations
   * 4.2.2-1
   * 4.3.1-1
 
+* Tested with Raspberry versions:
+
+  * Raspberry Pi 1
+  * Raspberry Pi 3 Model B V1.2
+
 License
 -------
 
