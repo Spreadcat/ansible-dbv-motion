@@ -12,5 +12,13 @@
     state: '{{ item.state | default(omit) }}'
   loop: '{{ motion_packages }}'
 
-
+  # Create the output/target_dirs for the files as specified.
+- name: MANAGE OUTPUT DIRECTORIES
+  file:
+    state: directory
+    path: "{{ item['target_dir'] }}"
+  loop: '{{ motion_config }}'
+  when:
+    - (item['state'] is defined and item['state'] not in ('absent') and item['target_dir'] is defined) or
+      (item['state'] is undefined and item['target_dir'] is defined)
 ...
